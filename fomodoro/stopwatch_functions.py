@@ -1,5 +1,5 @@
 """Functions of the stopwatch."""
-from fomodoro.core.utils import Stopwatch, States, increase
+from fomodoro.utils import Stopwatch, States, increase
 
 
 def start(stopwatch: Stopwatch) -> None:

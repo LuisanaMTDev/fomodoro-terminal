@@ -1,5 +1,5 @@
 """Functions of the timer."""
-from fomodoro.core.utils import Timer, Stopwatch, States, calculate_amount_of_seconds_for_the_timer, decrease
+from fomodoro.utils import Timer, Stopwatch, States, calculate_amount_of_seconds_for_the_timer, decrease
 
 
 def start(timer: Timer, stopwatch: Stopwatch):
