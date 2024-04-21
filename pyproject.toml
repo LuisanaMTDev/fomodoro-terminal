@@ -4,10 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fomodoro"
-version = "0.1.0"
+version = "1.0.0"
 authors = [{name = "LuisanaMTDev", email = "luisanamartineztorres25@gmail.com"}]
 description = "Stopwatch and timer to work and study with Flowtime technique."
 requires-python = ">=3.11"
+
+[project.scripts]
+fomodoro = "fomodoro.main"
 
 [tool.setuptools]
 packages = ["fomodoro"]

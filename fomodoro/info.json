@@ -1,5 +1,6 @@
 {
   "elapsed_seconds": 0,
   "stopwatch_state": " ",
-  "break_time_in_seconds": 0
+  "leftover_break_time_in_seconds": 0,
+  "timer_state": " "
 }
