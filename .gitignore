@@ -4,3 +4,4 @@ debug.py
 
 dist/
 build/
+*.pypirc
