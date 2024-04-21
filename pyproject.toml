@@ -10,7 +10,7 @@ description = "Stopwatch and timer to work and study with Flowtime technique."
 requires-python = ">=3.11"
 
 [project.scripts]
-fomodoro = "fomodoro.main"
+fomodoro = "fomodoro.main:fomodoro"
 
 [tool.setuptools]
 packages = ["fomodoro"]

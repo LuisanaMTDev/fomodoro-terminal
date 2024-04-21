@@ -91,4 +91,4 @@ def main(stdscr):
             with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
                 dump(info, info_file, indent=2)
 
-wrapper(main)
+fomodoro = wrapper(main)
