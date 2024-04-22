@@ -14,15 +14,21 @@ timer_obj = Timer()
 
 def main(stdscr):
     """"""
+    curses.resize_term(7, 39)
+    time_window = curses.newwin(1, 6, 1, 17)
+
     with open(INFO_FILE, 'r', encoding='utf-8') as info_file:
         info = load(info_file)
-
-    curses.resize_term(3, 11)
-    time_window = curses.newwin(1, 6, 1, 3)
 
     if info["stopwatch_state"] == "Pause" or info["stopwatch_state"] == " ":
         stopwatch_obj.start()
         stopwatch_obj.elapsed_seconds = info["elapsed_seconds"]
+
+        stdscr.clear()
+        stdscr.addstr(3, 5, "Instructions:\n")
+        stdscr.addstr(4, 3, "- Press p to pause the stopwatch.\n")
+        stdscr.addstr(5, 3, "- Press s to stop the stopwatch.")
+        stdscr.refresh()
 
         while stopwatch_obj.state is States.START:
             sleep(1.0)
@@ -52,6 +58,12 @@ def main(stdscr):
             except curses.error:
                 stopwatch_character = None
     elif info["stopwatch_state"] == "Stop":
+        stdscr.clear()
+        stdscr.addstr(3, 7, "Instructions:\n")
+        stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
+        #stdscr.addstr(5, 7, "- Press s to stop the timer.")  UNCOMENT THIS WHEN ISSUE #4 BE SOLVED.
+        stdscr.refresh()
+
         if info["timer_state"] == " ":
             amount_of_seconds_for_the_timer: float = round(info["elapsed_seconds"] / 5)
         else:
