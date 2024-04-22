@@ -1,5 +1,6 @@
 import curses
 from curses import wrapper
+from playsound import playsound
 from time import sleep, strftime, gmtime
 from json import load, dump
 
@@ -65,6 +66,7 @@ def main(stdscr):
                 timer_obj.break_time_in_seconds -= 1
             else:
                 timer_obj.stop()
+                playsound("bell.mp3")
                 info["timer_state"] = " "
                 info["leftover_break_time_in_seconds"] = 0
                 info["elapsed_seconds"] = 0
