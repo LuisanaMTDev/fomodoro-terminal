@@ -1,1 +1,2 @@
-include fomodoro/*.json
+include fomodoro/info.json
+include fomodoro/bell.mp3
