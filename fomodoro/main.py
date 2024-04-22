@@ -4,7 +4,7 @@ from playsound import playsound
 from time import sleep, strftime, gmtime
 from json import load, dump
 
-from fomodoro.utils import States, SECONDS_FORMAT, INFO_FILE
+from fomodoro.utils import States, TIME_FORMAT, INFO_FILE
 from fomodoro.stopwatch import Stopwatch
 from fomodoro.timer import Timer
 
@@ -14,8 +14,8 @@ timer_obj = Timer()
 
 def main(stdscr):
     """"""
-    curses.resize_term(7, 39)
-    time_window = curses.newwin(1, 6, 1, 17)
+    curses.resize_term(7, 40)
+    time_window = curses.newwin(1, 9, 1, 16)
 
     with open(INFO_FILE, 'r', encoding='utf-8') as info_file:
         info = load(info_file)
@@ -36,7 +36,7 @@ def main(stdscr):
                 stopwatch_obj.elapsed_seconds += 1
                 stopwatch_obj.seconds += 1
                 struct_time_stopwatch = gmtime(float(stopwatch_obj.elapsed_seconds))
-                stopwatch_formated_seconds = strftime(SECONDS_FORMAT, struct_time_stopwatch)
+                stopwatch_formated_seconds = strftime(TIME_FORMAT, struct_time_stopwatch)
 
                 time_window.nodelay(True)
                 time_window.clear()
@@ -89,7 +89,7 @@ def main(stdscr):
                     info["stopwatch_state"] = " "
                 
                 struct_time_timer = gmtime(timer_obj.break_time_in_seconds)
-                timer_formated_seconds = strftime(SECONDS_FORMAT, struct_time_timer)
+                timer_formated_seconds = strftime(TIME_FORMAT, struct_time_timer)
 
                 time_window.nodelay(True)
                 time_window.clear()

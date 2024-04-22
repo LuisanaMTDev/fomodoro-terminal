@@ -10,6 +10,6 @@ class States(Enum):
     PAUSE: str = 'Pause'
     STOP: str = 'Stop'
 
-SECONDS_FORMAT = '%M:%S'
+TIME_FORMAT = '%H:%M:%S'
 
 INFO_FILE = join(dirname(abspath(__file__)), 'info.json')
