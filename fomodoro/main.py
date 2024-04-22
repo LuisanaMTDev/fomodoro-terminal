@@ -1,10 +1,10 @@
 import curses
 from curses import wrapper
-from playsound import playsound
+from winsound import PlaySound, SND_FILENAME
 from time import sleep, strftime, gmtime
 from json import load, dump
 
-from fomodoro.utils import States, TIME_FORMAT, INFO_FILE
+from fomodoro.utils import States, TIME_FORMAT, INFO_FILE, BELL_SOUND_FILE
 from fomodoro.stopwatch import Stopwatch
 from fomodoro.timer import Timer
 
@@ -78,11 +78,11 @@ def main(stdscr):
                 timer_obj.break_time_in_seconds -= 1
             else:
                 timer_obj.stop()
-                playsound("bell.mp3")
                 info["timer_state"] = " "
                 info["leftover_break_time_in_seconds"] = 0
                 info["elapsed_seconds"] = 0
                 info["stopwatch_state"] = " "
+                PlaySound(BELL_SOUND_FILE, SND_FILENAME)
             
             struct_time_timer = gmtime(timer_obj.break_time_in_seconds)
             timer_formated_seconds = strftime(TIME_FORMAT, struct_time_timer)
