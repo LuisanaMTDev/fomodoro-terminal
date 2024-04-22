@@ -1,6 +1,6 @@
 import curses
 from curses import wrapper
-from winsound import PlaySound, SND_NOSTOP, SND_FILENAME
+from winsound import PlaySound, SND_FILENAME
 from time import sleep, strftime, gmtime
 from json import load, dump
 
