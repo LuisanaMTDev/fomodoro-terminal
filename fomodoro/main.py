@@ -61,7 +61,7 @@ def main(stdscr):
         stdscr.clear()
         stdscr.addstr(3, 7, "Instructions:\n")
         stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
-        #stdscr.addstr(5, 7, "- Press s to stop the timer.")  UNCOMENT THIS WHEN ISSUE #4 BE SOLVED.
+        #stdscr.addstr(5, 5, "- Press c to continue the timer.\n")  UNCOMENT THIS WHEN ISSUE #10 BE SOLVED.
         stdscr.refresh()
 
         if info["timer_state"] == " ":
