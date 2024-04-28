@@ -12,15 +12,14 @@ from fomodoro.timer import Timer
 stopwatch_obj = Stopwatch()
 timer_obj = Timer()
 
-def main(stdscr):
-    """"""
+def main(stdscr) -> None: # pylint: disable=missing-function-docstring
     curses.resize_term(7, 40)
     time_window = curses.newwin(1, 9, 1, 16)
 
     with open(INFO_FILE, 'r', encoding='utf-8') as info_file:
         info = load(info_file)
 
-    if info["stopwatch_state"] == "Pause" or info["stopwatch_state"] == " ":
+    if info["stopwatch_state"] == States.WITHOUT_START.value: # Stopwatch
         stopwatch_obj.start()
         stopwatch_obj.elapsed_seconds = info["elapsed_seconds"]
 
@@ -45,26 +44,25 @@ def main(stdscr):
                 stopwatch_character = time_window.getkey()
                 if stopwatch_character == "p":
                     stopwatch_obj.pause()
-                    info["stopwatch_state"] = 'Pause'
+                    info["stopwatch_state"] = States.PAUSE.value
                     info["elapsed_seconds"] = info["elapsed_seconds"] + stopwatch_obj.seconds
                     with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
                         dump(info, info_file, indent=2)
                 elif stopwatch_character == "s":
                     stopwatch_obj.stop()
-                    info["stopwatch_state"] = 'Stop'
+                    info["stopwatch_state"] = States.STOP.value
                     info["elapsed_seconds"] = info["elapsed_seconds"] + stopwatch_obj.seconds
                     with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
                         dump(info, info_file, indent=2)
             except curses.error:
                 stopwatch_character = None
-    elif info["stopwatch_state"] == "Stop":
+    elif info["stopwatch_state"] == States.STOP.value: # Timer
         stdscr.clear()
         stdscr.addstr(3, 7, "Instructions:\n")
         stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
-        #stdscr.addstr(5, 5, "- Press c to continue the timer.\n")  UNCOMENT THIS WHEN ISSUE #10 BE SOLVED.
         stdscr.refresh()
 
-        if info["timer_state"] == " ":
+        if info["timer_state"] == States.WITHOUT_START.value:
             amount_of_seconds_for_the_timer: float = round(info["elapsed_seconds"] / 5)
         else:
             amount_of_seconds_for_the_timer: float = info["leftover_break_time_in_seconds"]
@@ -78,12 +76,12 @@ def main(stdscr):
                 timer_obj.break_time_in_seconds -= 1
             else:
                 timer_obj.stop()
-                info["timer_state"] = " "
+                info["timer_state"] = States.WITHOUT_START.value
                 info["leftover_break_time_in_seconds"] = 0
                 info["elapsed_seconds"] = 0
-                info["stopwatch_state"] = " "
+                info["stopwatch_state"] = States.WITHOUT_START.value
                 PlaySound(BELL_SOUND_FILE, SND_FILENAME)
-            
+
             struct_time_timer = gmtime(timer_obj.break_time_in_seconds)
             timer_formated_seconds = strftime(TIME_FORMAT, struct_time_timer)
 
@@ -95,13 +93,13 @@ def main(stdscr):
                 timer_character = time_window.getkey()
                 if timer_character == "p":
                     timer_obj.pause()
-                    info["timer_state"] = "Pause"
+                    info["timer_state"] = States.PAUSE.value
                     info["leftover_break_time_in_seconds"] = timer_obj.break_time_in_seconds
                     with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
                         dump(info, info_file, indent=2)
             except curses.error:
                 timer_character = None
-            
+
         with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
             dump(info, info_file, indent=2)
 
