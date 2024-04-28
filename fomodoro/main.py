@@ -12,8 +12,7 @@ from fomodoro.timer import Timer
 stopwatch_obj = Stopwatch()
 timer_obj = Timer()
 
-def main(stdscr):
-    """"""
+def main(stdscr) -> None: # pylint: disable=missing-function-docstring
     curses.resize_term(7, 40)
     time_window = curses.newwin(1, 9, 1, 16)
 
@@ -61,7 +60,6 @@ def main(stdscr):
         stdscr.clear()
         stdscr.addstr(3, 7, "Instructions:\n")
         stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
-        #stdscr.addstr(5, 5, "- Press c to continue the timer.\n")  UNCOMENT THIS WHEN ISSUE #10 BE SOLVED.
         stdscr.refresh()
 
         if info["timer_state"] == " ":
@@ -83,7 +81,7 @@ def main(stdscr):
                 info["elapsed_seconds"] = 0
                 info["stopwatch_state"] = " "
                 PlaySound(BELL_SOUND_FILE, SND_FILENAME)
-            
+
             struct_time_timer = gmtime(timer_obj.break_time_in_seconds)
             timer_formated_seconds = strftime(TIME_FORMAT, struct_time_timer)
 
@@ -101,7 +99,7 @@ def main(stdscr):
                         dump(info, info_file, indent=2)
             except curses.error:
                 timer_character = None
-            
+
         with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
             dump(info, info_file, indent=2)
 
