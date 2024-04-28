@@ -20,7 +20,7 @@ def main(stdscr):
     with open(INFO_FILE, 'r', encoding='utf-8') as info_file:
         info = load(info_file)
 
-    if info["stopwatch_state"] == "Pause" or info["stopwatch_state"] == " ":
+    if info["stopwatch_state"] == "Pause" or info["stopwatch_state"] == " ": # Stopwatch
         stopwatch_obj.start()
         stopwatch_obj.elapsed_seconds = info["elapsed_seconds"]
 
@@ -57,7 +57,7 @@ def main(stdscr):
                         dump(info, info_file, indent=2)
             except curses.error:
                 stopwatch_character = None
-    elif info["stopwatch_state"] == "Stop":
+    elif info["stopwatch_state"] == "Stop": # Timer
         stdscr.clear()
         stdscr.addstr(3, 7, "Instructions:\n")
         stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
