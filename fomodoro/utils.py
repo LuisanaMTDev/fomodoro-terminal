@@ -7,6 +7,8 @@ TIME_FORMAT = '%H:%M:%S'
 
 INFO_FILE = join(dirname(abspath(__file__)), 'info.json')
 
+DATA_BASE_FILE = join(dirname(abspath(__file__)), 'fomodoro_terminal.db')
+
 BELL_SOUND_FILE = join(dirname(abspath(__file__)), 'bell.wav')
 
 class States(Enum):

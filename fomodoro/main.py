@@ -7,6 +7,7 @@ from json import load, dump
 from fomodoro.utils import States, TIME_FORMAT, INFO_FILE, BELL_SOUND_FILE
 from fomodoro.stopwatch import Stopwatch
 from fomodoro.timer import Timer
+from fomodoro.stats import add_stopwatch_record, add_timer_record
 
 
 stopwatch_obj = Stopwatch()
@@ -52,6 +53,7 @@ def main(stdscr) -> None: # pylint: disable=missing-function-docstring
                     stopwatch_obj.stop()
                     info["stopwatch_state"] = States.STOP.value
                     info["elapsed_seconds"] = info["elapsed_seconds"] + stopwatch_obj.seconds
+                    add_stopwatch_record(info["elapsed_seconds"] + stopwatch_obj.seconds)
                     with open(INFO_FILE, 'w', encoding='utf-8') as info_file:
                         dump(info, info_file, indent=2)
             except curses.error:
@@ -64,6 +66,7 @@ def main(stdscr) -> None: # pylint: disable=missing-function-docstring
 
         if info["timer_state"] == States.WITHOUT_START.value:
             amount_of_seconds_for_the_timer: float = round(info["elapsed_seconds"] / 5)
+            add_timer_record(amount_of_seconds_for_the_timer)
         else:
             amount_of_seconds_for_the_timer: float = info["leftover_break_time_in_seconds"]
 
