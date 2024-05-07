@@ -14,13 +14,13 @@ def main(stdscr) -> None:
     with open(INFO_FILE, 'r', encoding='utf-8') as info_file:
         info = load(info_file)
 
-    if (info["stopwatch_state"] == States.WITHOUT_START.value 
+    if (info["stopwatch_state"] == States.WITHOUT_START.value
         or info["stopwatch_state"] == States.PAUSE.value): # Stopwatch execute
         stopwatch_obj = prepare_stopwatch()
 
         stdscr.clear() # Add instructions to screen
-        stdscr.addstr(3, 5, "Instructions:\n")
-        stdscr.addstr(4, 3, "- Press p to pause the stopwatch.\n")
+        stdscr.addstr(3, 5, "Instructions:")
+        stdscr.addstr(4, 3, "- Press p to pause the stopwatch.")
         stdscr.addstr(5, 3, "- Press s to stop the stopwatch.")
         stdscr.refresh()
 
@@ -29,8 +29,8 @@ def main(stdscr) -> None:
         timer_obj = prepare_timer()
 
         stdscr.clear() # Add instructions to screen
-        stdscr.addstr(3, 7, "Instructions:\n")
-        stdscr.addstr(4, 5, "- Press p to pause the timer.\n")
+        stdscr.addstr(3, 7, "Instructions:")
+        stdscr.addstr(4, 5, "- Press p to pause the timer.")
         stdscr.refresh()
 
         run_timer(timer_obj)
