@@ -5,7 +5,7 @@ import click as ck
 
 from fomodoro.utils import DATA_BASE_FILE
 
-
+# IDEA FOR TEST: Print whatever raised exception on code that use sqlite3.
 def create_table(cursor: Cursor, connection: Connection) -> None:
     """This function create stopwatch and timer tables on fomodoro_terminal database."""
     try:
@@ -33,6 +33,8 @@ def add_stopwatch_record(elapsed_seconds: int) -> None:
 
     create_table(cursor, connection)
 
+    #IDEA FOR TEST: After execute this function execute a select query 
+    #to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO stopwatch(seconds, date) VALUES (?, ?)
@@ -43,6 +45,7 @@ def add_stopwatch_record(elapsed_seconds: int) -> None:
 
     connection.close()
 
+
 def add_timer_record(amount_of_seconds_for_the_timer: int) -> None:
     """This function create a new record on timer table."""
     timestamp = datetime.now().timestamp()
@@ -52,6 +55,8 @@ def add_timer_record(amount_of_seconds_for_the_timer: int) -> None:
 
     create_table(cursor, connection)
 
+    #IDEA FOR TEST: After execute this function execute a select query 
+    #to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO timer(seconds, date) VALUES (?, ?)
