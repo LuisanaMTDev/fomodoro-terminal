@@ -15,7 +15,7 @@ dependencies = [
 readme= "README.md"
 
 [project.scripts]
-fomodoro = "fomodoro.main:fomodoro"
+fomodoro = "fomodoro.main:FOMODORO"
 fomodoro-stats = "fomodoro.stats:show_stats"
 
 [tool.setuptools]

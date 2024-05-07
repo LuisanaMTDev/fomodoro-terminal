@@ -1,4 +1,4 @@
-"""Utilities."""
+"""On this module there are util code."""
 from enum import Enum
 from os.path import dirname, abspath, join
 
