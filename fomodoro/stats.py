@@ -6,15 +6,15 @@ import click as ck
 from fomodoro.utils import DATA_BASE_FILE
 
 # IDEA FOR TEST: Print whatever raised exception on code that use sqlite3.
-def create_table(cursor: Cursor, connection: Connection) -> None:
+def create_table(cursor: Cursor, connection: Connection, table_name: str) -> None:
     """This function create stopwatch and timer tables on fomodoro_terminal database."""
     try:
         cursor.execute(
-            """
-            CREATE TABLE stopwatch(
+            f"""
+            CREATE TABLE {table_name}(
             id INTEGER NOT NULL,
             seconds INTEGER NOT NULL,
-            date REAL NOT NULL,
+            date TEXT NOT NULL,
             PRIMARY KEY(id AUTOINCREMENT)
             );
             """
@@ -26,20 +26,20 @@ def create_table(cursor: Cursor, connection: Connection) -> None:
 
 def add_stopwatch_record(elapsed_seconds: int) -> None:
     """This function create a new record on stopwatch table."""
-    timestamp = datetime.now().timestamp()
+    date = datetime.now().isoformat()[0:10]
 
     connection = connect(DATA_BASE_FILE)
     cursor = connection.cursor()
 
-    create_table(cursor, connection)
+    create_table(cursor, connection, "stopwatch")
 
-    #IDEA FOR TEST: After execute this function execute a select query 
+    #IDEA FOR TEST: After execute this function execute a select query
     #to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO stopwatch(seconds, date) VALUES (?, ?)
         """,
-        (elapsed_seconds, timestamp)
+        (elapsed_seconds, date)
     )
     connection.commit()
 
@@ -48,20 +48,20 @@ def add_stopwatch_record(elapsed_seconds: int) -> None:
 
 def add_timer_record(amount_of_seconds_for_the_timer: int) -> None:
     """This function create a new record on timer table."""
-    timestamp = datetime.now().timestamp()
+    date = datetime.now().isoformat()[0:10]
 
     connection = connect(DATA_BASE_FILE)
     cursor = connection.cursor()
 
-    create_table(cursor, connection)
+    create_table(cursor, connection, "timer")
 
-    #IDEA FOR TEST: After execute this function execute a select query 
+    #IDEA FOR TEST: After execute this function execute a select query
     #to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO timer(seconds, date) VALUES (?, ?)
         """,
-        (amount_of_seconds_for_the_timer, timestamp)
+        (amount_of_seconds_for_the_timer, date)
     )
     connection.commit()
 
