@@ -4,8 +4,10 @@ This module has all code related to stats feature.
 from datetime import datetime
 from sqlite3 import connect, OperationalError, Cursor, Connection
 import click as ck
+from rich.table import Table
+from rich.console import Console
 
-from fomodoro.utils import DATA_BASE_FILE
+from fomodoro.utils import DATA_BASE_FILE, format_seconds
 
 
 # IDEA FOR TEST: Print whatever raised exception on code that use sqlite3.
@@ -161,6 +163,22 @@ def get_seconds() -> list[tuple[tuple, tuple, tuple, tuple]]:
 @ck.command
 def show_stats():
     """
-    This command show stopwatch and timer stats for user.
+    This command shows stopwatch and timer stats to the user.
     """
-    ck.echo("Hello world!")
+    time_periods = ("Daily", "Week", "Monthly", "Yearly")
+    sum_of_seconds = get_seconds()
+    stopwatch_seconds = sum_of_seconds[0]
+    timer_seconds = sum_of_seconds[1]
+
+    stats_table = Table("", "Work/Study", "Break",
+                        title="Stats", title_justify="center",
+                        show_lines=True, title_style="bold italic")
+
+    for time_period, work_study_seconds, break_seconds in zip(time_periods, stopwatch_seconds, timer_seconds):
+        work_study_seconds_formatted = format_seconds(work_study_seconds[0])
+        break_seconds_formatted = format_seconds(break_seconds[0])
+
+        stats_table.add_row(time_period, work_study_seconds_formatted, break_seconds_formatted)
+
+    console = Console()
+    console.print(stats_table)
