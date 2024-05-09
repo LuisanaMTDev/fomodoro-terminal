@@ -1,2 +1,3 @@
-include fomodoro/info.json
+include fomodoro/*.json
 include fomodoro/bell.wav
+exclude .github/workflows/build_and_publish.yml
