@@ -3,11 +3,12 @@ This module has all code related to stats feature.
 """
 from datetime import datetime
 from sqlite3 import connect, OperationalError, Cursor, Connection
+from os import makedirs
 import click as ck
 from rich.table import Table
 from rich.console import Console
 
-from fomodoro.utils import DATA_BASE_FILE, format_seconds
+from fomodoro.utils import DATA_BASE_FILE, DATA_FOLDER_PATH, format_seconds
 
 
 # IDEA FOR TEST: Print whatever raised exception on code that use sqlite3.
@@ -41,6 +42,7 @@ def add_stopwatch_record(elapsed_seconds: int) -> None:
     date = datetime.now().isoformat()[0:10]
     week = datetime.now().strftime('%W')
 
+    makedirs(DATA_FOLDER_PATH, exist_ok=True)
     connection = connect(DATA_BASE_FILE)
     cursor = connection.cursor()
 
@@ -66,6 +68,7 @@ def add_timer_record(amount_of_seconds_for_the_timer: int) -> None:
     date = datetime.now().isoformat()[0:10]
     week = datetime.now().strftime('%W')
 
+    makedirs(DATA_FOLDER_PATH, exist_ok=True)
     connection = connect(DATA_BASE_FILE)
     cursor = connection.cursor()
 
