@@ -11,7 +11,6 @@ from rich.console import Console
 from fomodoro.utils import DATA_BASE_FILE, DATA_FOLDER_PATH, format_seconds
 
 
-# IDEA FOR TEST: Print whatever raised exception on code that use sqlite3.
 def create_table(cursor: Cursor,
                  connection: Connection,
                  table_name: str) -> None:
@@ -48,8 +47,6 @@ def add_stopwatch_record(elapsed_seconds: int) -> None:
 
     create_table(cursor, connection, "stopwatch")
 
-    # IDEA FOR TEST: After execute this function execute a select query
-    # to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO stopwatch(seconds, date) VALUES (?, ?)
@@ -74,8 +71,6 @@ def add_timer_record(amount_of_seconds_for_the_timer: int) -> None:
 
     create_table(cursor, connection, "timer")
 
-    # IDEA FOR TEST: After execute this function execute a select query
-    # to compare result data with insert insert data.
     cursor.execute(
         """
         INSERT INTO timer(seconds, date) VALUES (?, ?)
